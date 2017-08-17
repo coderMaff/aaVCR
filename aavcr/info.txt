@@ -1,0 +1,25 @@
+aaVCR FileInfo for .flm file format
+
+0x30	Film Version 
+		17 = KAA
+		19 = FA 1.5
+		
+0x3A	Terrain
+		01 = Default FA_15 		
+		61 = Default KAA	
+		
+		With KA 	01 = File contains Unsupported Terain
+					02 = Replay for full game version	
+			
+			
+			
+Person Joins with:
+
+64 64 00 03 03 00 00 00 00 00 00 00 00 00 01 0B Name
+64 64 01 03 03 01 00 01 03 01 03 01 00 00 01 0C Name
+64 64 05 03 03 05 00 05 00 05 00 00 05 0F Name
+00 00 02 03 03 02 00 00 02 01 01 02 02 02 02 03 02 03 02 00 00 02 02 Name
+
+64 64 00 03 03 00 00 00 00 00 00 00 00 00 01 0C Name
+64 64 01 03 03 01 00 01 03 01 00 00 01 00 02 02 Name
+0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16

@@ -1,0 +1,89 @@
+I`ve managed to edit a recording, but I found it was a lot of hassle because as soon
+as you alter some data you put the addresses and sizes of data blocks out of line and
+they need to be fixed or the recording doesn`t work.
+Specially file size, address location of headers (which is affected if you insert data),
+header size, which is effected if you have to insert or remove headers.
+multiple bytes in this file is Intel style(reverse order), ie least significant byte first.
+
+
+Recording File header:
+Address:  use:
+0x000000  0103 0507 090B 0D11 0204 0608 0A0C 0E10 (unknown, but always seems to be the same, could be version etc)
+0x000010  0200 (unknown, but always seems to be the same, could be version etc)
+0x000012  4 byte size of block of Headers (must be correct!)
+0x000016  4 byte address for the location of data Headers, seem to have to add 31 to this to get correct address. (must be correct!)
+0x00001A  4 byte file size (must be correct or file is said to be corrupt)
+0x000020  string "FilmFilmFilmFilm"
+0x000030  recording version
+0x000033  2 byte Timing info, actually contains the number of headers of data,
+	  since there is 4 packets of data for every second of the recording,
+	  you can workout the length of the recording from this, roughly but I seem
+	  to be having some trouble working out larger numbers.
+0x000035  unknown
+0x000040  string of description of file, 32 bytes long including Null terminator. same amount of space reserved even if description wasn`t specified.
+0x000050  continuing from 0x000040
+0x000060  unknown, but always seems to contain the same thing,
+	  01FF FFFF 0000 0000 0000 0000 0000 0000 
+0x000070  unknown, but first 2 bytes always seems to be the same
+	  0101
+0x000072  4 bytes before start of Packet data at 0x000076
+
+At the bottom of the recording seems to be the Headers for the actual
+data in the recording, also with these headers is some stats about brakes,
+gear maybe etc.
+Join Header: seems to be 13 bytes - 0205 0607 1220 2324 2E38 0809 0A
+Movement Header: seems to be 16bit corresponding to 12 bytes of data.
+		 first byte 0x01.
+Text(comms) Header: seems to be a single byte 0x10. Which kind of suggests that the
+program is viewing the headers one byte at a time, but it must be looking at a second
+byte if it realises there is movement data because there is 2 bytes of header for
+every set of movement data as far as I can tell.
+Brake stats Header: byte 0x23
+
+Join data: (97 bytes)
+byte = seems to be some kind of ID, increases by 1 for each join on the recording.
+byte = plane type
+32 byte String (including Null terminator) = Pilot/player name
+14 bytes = unknown
+1 byte = players colour/nationality, 0 = USA, 1 = GB, 2 = SU, 3 = GE, 4 = No tag.
+14 bytes = unknown
+1 byte = gear status, 3 = down, 2 = between, 1 = up, 0 = up
+11 bytes = unknown
+1 byte = brake status, 3 = on, 2 = off, 1 = on, 0 = off
+7 bytes = unknown
+1 byte = view mode, 1 = F3 with mini radar, 2 = F3, 3 = F2, 4 = F4, 9 = F7, 0x0A = F8, 0x0B = F9 (I think) 
+12 bytes = unknown
+1 byte = tag status, 4 = camp tag, 2 = only distance, 1 = only name, 0 = no tag, add together to combine stats
+
+Movement data: (12 bytes)
+Doesn`t seem to contain stats like, brakes - can see any difference.
+
+Text data: (comms) (normally 33/34 bytes)
+Seems to be standard 32 byte null terminated string, but is sometimes bigger..
+And I think there is one byte or maybe 2 before the string, player ID or something.
+
+Brake data: 2 bytes, 0003 brakes on, 0002 brakes off.
+
+plane type byte codes:-
+01 = early p38
+02 = spit 9
+03 = early hurri
+04 = La5
+05 = yak9
+06 = Bf-109G-6
+07 = Fw-190A-8
+08 = Fw-190D-9
+09 = p51
+0A = Hurricane
+0C = 109k-4
+0D = La7
+0E = p38
+0F = Spit 14
+14 = yank bomber, B-17
+16 = Error: Moskito doesn`t exist
+17 = 4 engine GB bomber, Lancaster
+18 = Error: MPLANES2\TU_2\tu_2.ob and MPLANES2\TU_2\tu_2.ob$ does not exist
+19 = 4 engine SU bomber, I don`t know what it`s called
+1A = Error: MPLANES2\JU_87\ju_87.ob and MPLANES2\JU_87\ju_87.ob$ does not exist
+1B = 2 engine GE bomber
+50 = Flying saucer (no joke!!!)

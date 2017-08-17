@@ -1,0 +1,22 @@
+
+
+## = what number player they are
+#1 = player number + 1
+0x = either 02 03 or 04
+PT = plane type
+NN = Name text
+
+Top Ones
+1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20
+00 00 ## 64 64 ## 03 03 ## 00 ## 00 ## 00 00 ## 00 #1 PT NN NN NN NN NN .... ( Targets Fladermouse )
+00 00 ## 64 64 ## 03 03 ## 00 ## 03 ## 00 00 ## 00 #1 PT NN NN NN NN NN .... ( Pongo Bill )
+00 00 ## 01 01 ## 02 02 ## 03 ## 03 ## 00 00 ## 00 #1 PT NN NN NN NN NN .... ( Anybody Recruiting )
+00 00 ## 64 64 ## 04 04 ## 00 ## 00 ## 00 00 ## 00 #1 PT NN NN NN NN NN .... ( Blundering Fool )
+00 00 ## 64 64 ## 03 03 ## 00 ## 00 ## 00 00 ## 00 #1 PT NN NN NN NN NN .... ( Kipp )
+00 00 ## 64 64 ## 03 03 ## 00 ## 00 ## 00 00 ## 00 #1 PT NN NN NN NN NN .... ( Withabix )
+
+00 00 ## 5E 5E ## 03 03 ## 03 01 00 ## 00 00 ## 00 #1 0F NN NN NN NN NN .... ( [Av]28_Casus_Belli )
+
+Mid ones
+
+00 00 ## 64 64 ## 04 04 ## 03 ## 03 ## 00 00 ## PT NN NN NN NN NN .... ( Withabix )
